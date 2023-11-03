@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.ezam.melichallenge"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.ezam.melichallenge"
