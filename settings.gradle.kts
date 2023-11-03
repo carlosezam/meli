@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Meli Challenge"
 include(":app")
- 
+include(":search")
+include(":utils")
