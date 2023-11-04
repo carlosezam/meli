@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
 
+    implementation(libs.lottie.compose)
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
@@ -86,4 +87,7 @@ dependencies {
     testImplementation(libs.ui.test.junit4)
     testImplementation(libs.truth)
     testImplementation(libs.roboelectric)
+    testImplementation(libs.mockk)
+
+    implementation(project(":utils"))
 }

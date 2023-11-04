@@ -42,5 +42,5 @@ fun NavGraphBuilder.searchRoute(
 }
 
 fun NavController.navigateToSearch(){
-    navigate("SEARCH_ROUTE")
+    navigate(SEARCH_ROUTE)
 }

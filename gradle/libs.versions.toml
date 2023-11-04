@@ -20,8 +20,10 @@ dagger-hilt = "2.44"
 ksp = "1.8.10-1.0.9"
 truth = "1.1.4"
 coil-compose = "2.4.0"
+lottie-compose = "6.1.0"
 
 roboelectric = "4.9"
+mockk = "1.13.5"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -43,6 +45,7 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose"}
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie-compose"}
 
 
 #arrow
@@ -60,6 +63,7 @@ dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref
 #testing
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
