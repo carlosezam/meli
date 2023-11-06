@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,12 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ezam.melichallenge.search.R
-import com.ezam.melichallenge.search.presentation.search_list.ResultItem
+import com.ezam.melichallenge.search.presentation.search_list.model.ResultItem
 import com.ezam.yaperecipies.presentation.component.painterImage
 import com.ezam.yaperecipies.presentation.component.stringText
 import com.ezam.yaperecipies.presentation.model.Image
@@ -53,7 +50,6 @@ fun SearchListItem(item: ResultItem, modifier: Modifier = Modifier, onClick: () 
             contentDescription = "",
             modifier = Modifier
                 .size(64.dp)
-                .clip(CircleShape)
 
         )
         Column(
@@ -75,7 +71,7 @@ fun SearchListItem(item: ResultItem, modifier: Modifier = Modifier, onClick: () 
 @Composable
 private fun SearchListItemPreview() {
     val item = ResultItem(
-        image = Image.DrawableRes(R.drawable.ic_search),
+        image = Image.URL("http://http2.mlstatic.com/D_874210-MLA69633547567_052023-I.jpg"),
         name = Text.StringValue("Lorem ipsum")
     )
     SearchListItem(

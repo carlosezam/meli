@@ -40,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -81,6 +82,14 @@ dependencies {
 
     implementation(libs.lottie.compose)
 
+    implementation(libs.arrow.core)
+
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.squareup.retrofit2)
+    implementation(libs.retrofit2.serialization.converter)
+    implementation(libs.squareup.okhttp3.logging.interceptor)
+    testImplementation(libs.squareup.okhttp3.mockwebserver)
+
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
 
@@ -88,6 +97,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.roboelectric)
     testImplementation(libs.mockk)
+    testImplementation(libs.kotest.assertions.arrow)
 
     implementation(project(":utils"))
 }

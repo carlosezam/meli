@@ -1,6 +1,8 @@
 package com.ezam.melichallenge.search.presentation.search_form
 
 import androidx.lifecycle.ViewModel
+import com.ezam.melichallenge.search.presentation.search_form.model.SearchEvent
+import com.ezam.melichallenge.search.presentation.search_form.model.SearchScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

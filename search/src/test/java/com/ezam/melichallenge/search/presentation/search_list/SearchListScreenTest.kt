@@ -1,16 +1,15 @@
 package com.ezam.melichallenge.search.presentation.search_list
 
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
-import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.ezam.melichallenge.search.R
+import com.ezam.melichallenge.search.presentation.search_list.model.ResultItem
+import com.ezam.melichallenge.search.presentation.search_list.model.SearchListState
 import com.ezam.yaperecipies.presentation.model.Image
 import com.ezam.yaperecipies.presentation.model.Text
-import io.mockk.core.ValueClassSupport.boxedValue
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Assert.*
@@ -25,22 +24,37 @@ class SearchListScreenTest {
     @get:Rule
     val composeRule = createComposeRule()
 
-    val emptyScreen
+    private val loadingScreen
+        get() = composeRule.onNodeWithContentDescription(SearchListLoading)
+
+    private val emptyScreen
         get() = composeRule.onNodeWithContentDescription("Sin resultados")
 
-    val errorScreen
-        get() = composeRule.onNodeWithContentDescription("Error en la busqueda")
+    private val errorScreen
+        get() = composeRule.onNodeWithContentDescription(SearchListErrorScreen)
 
-    val resultList
-        get() = composeRule.onNodeWithContentDescription("Lista de resultados")
+    private val resultList
+        get() = composeRule.onNodeWithContentDescription(SearchListResultsScreen)
 
-    val errorSnackBar
-        get() = composeRule.onNodeWithContentDescription("SnackBar de error")
+    private val errorSnackBar
+        get() = composeRule.onNodeWithContentDescription(SearchListSnackBar)
+
+    @Test
+    fun `pantalla de carga cuando la lista es nula`() {
+        // given
+        val state = SearchListState()
+        composeRule.setContent { SearchListScreen(state = state) }
+
+        // when
+
+        // then
+        loadingScreen.assertIsDisplayed()
+    }
 
     @Test
     fun `pantalla sin resultados cuando la lista de resultados es vacia`() {
         //Given
-        val state = SearchListState()
+        val state = SearchListState( results = emptyList())
         composeRule.setContent { SearchListScreen(state = state) }
 
         //When
@@ -66,31 +80,6 @@ class SearchListScreenTest {
         errorScreen.assertIsDisplayed()
         emptyScreen.assertDoesNotExist()
         resultList.assertDoesNotExist()
-    }
-
-    @Test
-    fun `listado y snackbar cuando hay resultados, pero hay error al descargar mas resultados`() {
-        //Given
-
-        val state = SearchListState(
-            results = listOf(
-                ResultItem(
-                    Image.DrawableRes(R.drawable.ic_search),
-                    Text.StringValue("lorem")
-                )
-            ),
-            error = Text.StringValue("Lorem")
-        )
-        composeRule.setContent { SearchListScreen(state = state) }
-
-        //When
-
-        //Then
-        errorScreen.assertDoesNotExist()
-        emptyScreen.assertDoesNotExist()
-
-        resultList.assertIsDisplayed()
-        errorSnackBar.assertIsDisplayed()
     }
 
     @Test

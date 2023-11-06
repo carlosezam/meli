@@ -2,4 +2,6 @@
 <resources>
     <string name="label_no_encontramos_publicaciones">No encontramos publicaciones</string>
     <string name="label_revisa_esta_bien_escrita">Revisa que la palabra esté bien escrita.</string>
+    <string name="msg_revisa_tu_conexion_a_internet">Revisa tu conexión a internet</string>
+    <string name="msg_ha_ocurrido_un_error_inesperado">Ha ocurrido un error inesperado</string>
 </resources>

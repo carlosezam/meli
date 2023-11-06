@@ -24,13 +24,14 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.ezam.melichallenge.search.R
+import com.ezam.melichallenge.search.presentation.search_list.SearchListEmptyScreen
 import com.ezam.yaperecipies.presentation.component.stringText
 
 @Composable
 fun SearchListEmpty(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .semantics { contentDescription = "Sin resultados" }
+            .semantics { contentDescription = SearchListEmptyScreen }
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally

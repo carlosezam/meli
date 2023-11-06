@@ -1,7 +1,6 @@
 package com.ezam.melichallenge.search.presentation.search_form
 
-import com.ezam.melichallenge.search.presentation.search_form.SearchEvent
-import com.ezam.melichallenge.search.presentation.search_form.SearchViewModel
+import com.ezam.melichallenge.search.presentation.search_form.model.SearchEvent
 import com.google.common.truth.Truth
 import org.junit.Test
 

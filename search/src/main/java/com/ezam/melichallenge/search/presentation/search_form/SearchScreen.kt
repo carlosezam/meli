@@ -18,6 +18,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ezam.melichallenge.search.R
+import com.ezam.melichallenge.search.presentation.search_form.model.SearchScreenState
 
 @Composable
 fun SearchScreen(
@@ -32,7 +33,7 @@ fun SearchScreen(
             value = state.search,
             onValueChange = onSearchChange,
             modifier = Modifier
-                .semantics { contentDescription = "Search input" }
+                .semantics { contentDescription = SearchFormInput }
                 .fillMaxWidth()
                 .padding(16.dp),
             shape = RoundedCornerShape(10.dp),
@@ -41,14 +42,15 @@ fun SearchScreen(
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = "search icon"
                 )
-            }
+            },
+            singleLine = true
         )
 
         Button(
             onClick = onSearchClick,
             enabled = state.isSearchButtonEnabled,
             modifier = Modifier
-                .semantics { contentDescription = "Search button" }
+                .semantics { contentDescription = SearchFormButton }
                 .padding(top = 32.dp)
                 .align(Alignment.CenterHorizontally)
         ) {

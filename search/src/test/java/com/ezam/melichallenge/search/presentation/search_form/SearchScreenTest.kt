@@ -4,8 +4,7 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
-import com.ezam.melichallenge.search.presentation.search_form.SearchScreen
-import com.ezam.melichallenge.search.presentation.search_form.SearchScreenState
+import com.ezam.melichallenge.search.presentation.search_form.model.SearchScreenState
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test

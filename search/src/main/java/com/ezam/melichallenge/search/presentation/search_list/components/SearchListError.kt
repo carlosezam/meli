@@ -24,6 +24,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.ezam.melichallenge.search.R
+import com.ezam.melichallenge.search.presentation.search_list.SearchListErrorScreen
 import com.ezam.yaperecipies.presentation.component.stringText
 import com.ezam.yaperecipies.presentation.model.Text
 
@@ -35,7 +36,7 @@ fun SearchListError(
 ) {
     Column(
         modifier = modifier
-            .semantics { contentDescription = "Error en la busqueda" }
+            .semantics { contentDescription = SearchListErrorScreen }
             .padding(16.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,

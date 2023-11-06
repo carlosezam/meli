@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.ezam.melichallenge.search.presentation.search_form.model.SearchEvent
 
 const val SEARCH_ROUTE = "search"
 
