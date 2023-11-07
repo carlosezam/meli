@@ -5,6 +5,7 @@ import com.ezam.yaperecipies.presentation.model.Image
 import com.ezam.yaperecipies.presentation.model.Text
 
 fun Product.toResultItem() = ResultItem(
+    id=id,
     image = Image.URL(imageUrl),
     name = Text.StringValue(name)
 )

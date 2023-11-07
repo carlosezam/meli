@@ -5,7 +5,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.ezam.melichallenge.search.R
+import com.ezam.melichallenge.search.presentation.ErrorScreen
+import com.ezam.melichallenge.search.presentation.LoadingScreen
 import com.ezam.melichallenge.search.presentation.search_list.model.ResultItem
 import com.ezam.melichallenge.search.presentation.search_list.model.SearchListState
 import com.ezam.yaperecipies.presentation.model.Image
@@ -25,13 +26,13 @@ class SearchListScreenTest {
     val composeRule = createComposeRule()
 
     private val loadingScreen
-        get() = composeRule.onNodeWithContentDescription(SearchListLoading)
+        get() = composeRule.onNodeWithContentDescription(LoadingScreen)
 
     private val emptyScreen
         get() = composeRule.onNodeWithContentDescription("Sin resultados")
 
     private val errorScreen
-        get() = composeRule.onNodeWithContentDescription(SearchListErrorScreen)
+        get() = composeRule.onNodeWithContentDescription(ErrorScreen)
 
     private val resultList
         get() = composeRule.onNodeWithContentDescription(SearchListResultsScreen)
@@ -86,10 +87,12 @@ class SearchListScreenTest {
     fun `invoca onResultItemClick con el valor del item presionado`() {
         //Given
         val item1 = ResultItem(
+            id = "ID",
             image = Image.URL("http://example.png"),
             name = Text.StringValue("Result 1")
         )
         val item2 = ResultItem(
+            id = "ID",
             image = Image.URL("http://example.png"),
             name = Text.StringValue("Result 2")
         )

@@ -4,6 +4,7 @@ import com.ezam.yaperecipies.presentation.model.Image
 import com.ezam.yaperecipies.presentation.model.Text
 
 data class ResultItem(
+    val id: String,
     val image: Image,
     val name: Text
 )

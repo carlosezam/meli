@@ -1,4 +1,4 @@
-package com.ezam.melichallenge.search.presentation.search_list.components
+package com.ezam.melichallenge.search.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,19 +24,19 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.ezam.melichallenge.search.R
-import com.ezam.melichallenge.search.presentation.search_list.SearchListErrorScreen
+import com.ezam.melichallenge.search.presentation.ErrorScreen
 import com.ezam.yaperecipies.presentation.component.stringText
 import com.ezam.yaperecipies.presentation.model.Text
 
 @Composable
-fun SearchListError(
+fun ErrorScreen(
     title: Text,
     message: Text?,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
-            .semantics { contentDescription = SearchListErrorScreen }
+            .semantics { contentDescription = ErrorScreen }
             .padding(16.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -72,7 +72,7 @@ fun SearchListError(
 @Preview
 @Composable
 private fun SearchListErrorPreview() {
-    SearchListError(
+    ErrorScreen(
         title = Text.StringValue("No encontramos publicaciones"),
         message = Text.StringValue("Revisa que la palabra esté bien escrita.")
     )

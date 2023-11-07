@@ -1,5 +1,6 @@
 package com.ezam.melichallenge.search.data.remote
 
+import com.ezam.melichallenge.search.data.remote.model.DetailsDTO
 import com.ezam.melichallenge.search.data.remote.model.SearchDTO
 import com.google.common.truth.Truth
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -15,6 +16,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import java.net.HttpURLConnection
 
@@ -30,6 +32,7 @@ class SearchApiTest {
 
         val jsonConverter = Json{
             ignoreUnknownKeys = true
+            coerceInputValues = true
         }.asConverterFactory("application/json".toMediaType())
         val okHttpClient = OkHttpClient().newBuilder().build()
 
@@ -50,6 +53,14 @@ class SearchApiTest {
     fun enqueueSuccessResponse(json: String){
         val response = MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
+            .setBody(json)
+
+        mockWebServer.enqueue(response)
+    }
+
+    fun enqueueNotFoundResponse(json: String){
+        val response = MockResponse()
+            .setResponseCode(HttpURLConnection.HTTP_NOT_FOUND)
             .setBody(json)
 
         mockWebServer.enqueue(response)
@@ -82,8 +93,286 @@ class SearchApiTest {
 
         Truth.assertThat(result).isEqualTo(expected)
     }
+
+    @Test
+    fun `valida el parseo exitoso del json de detalles`() = runTest {
+        // given
+        enqueueNotFoundResponse(DETAILS_JSON)
+
+        // when
+        val result = try {
+            searchApi.details("lorem" )
+        }catch (e: Exception){
+            e.printStackTrace()
+            return@runTest
+        }
+
+        // then
+        val expected = DetailsDTO(
+            id = "MLM1746015974",
+            title = "Lampara De Cabeza Usb Linterna Iluminacion Doble Recargable",
+            price = 68.88F,
+            condition = "new",
+            pictures = listOf(
+                DetailsDTO.PictureDTO(
+                    secureUrl = "https://http2.mlstatic.com/D_630723-MLM53260390741_012023-O.jpg"
+                )
+            ),
+            attributes = listOf(
+                DetailsDTO.AttributeDTO(
+                    name = "Alcance de proyección",
+                    valueName = "50 m"
+                ),
+                DetailsDTO.AttributeDTO(
+                    name = "Marca",
+                    valueName = "TGW"
+                ),
+                DetailsDTO.AttributeDTO(
+                    name = "Diámetro",
+                    valueName = ""
+                )
+            )
+        )
+
+        Truth.assertThat(result).isEqualTo(expected)
+    }
 }
 
+private const val DETAILS_JSON = """
+{
+    "id": "MLM1746015974",
+    "site_id": "MLM",
+    "title": "Lampara De Cabeza Usb Linterna Iluminacion Doble Recargable",
+    "seller_id": 801048640,
+    "category_id": "MLM47781",
+    "official_store_id": null,
+    "price": 68.88,
+    "base_price": 68.88,
+    "original_price": 168,
+    "currency_id": "MXN",
+    "initial_quantity": 3239,
+    "sale_terms": [
+        {
+            "id": "WARRANTY_TIME",
+            "name": "Tiempo de garantía",
+            "value_id": null,
+            "value_name": "1 meses",
+            "value_struct": {
+                "number": 1,
+                "unit": "meses"
+            },
+            "values": [
+                {
+                    "id": null,
+                    "name": "1 meses",
+                    "struct": {
+                        "number": 1,
+                        "unit": "meses"
+                    }
+                }
+            ],
+            "value_type": "number_unit"
+        },
+        {
+            "id": "WARRANTY_TYPE",
+            "name": "Tipo de garantía",
+            "value_id": "2230280",
+            "value_name": "Garantía del vendedor",
+            "value_struct": null,
+            "values": [
+                {
+                    "id": "2230280",
+                    "name": "Garantía del vendedor",
+                    "struct": null
+                }
+            ],
+            "value_type": "list"
+        }
+    ],
+    "buying_mode": "buy_it_now",
+    "listing_type_id": "gold_special",
+    "condition": "new",
+    "permalink": "https://articulo.mercadolibre.com.mx/MLM-1746015974-lampara-de-cabeza-usb-linterna-iluminacion-doble-recargable-_JM",
+    "thumbnail_id": "630723-MLM53260390741_012023",
+    "thumbnail": "http://http2.mlstatic.com/D_630723-MLM53260390741_012023-I.jpg",
+    "pictures": [
+        {
+            "id": "630723-MLM53260390741_012023",
+            "url": "http://http2.mlstatic.com/D_630723-MLM53260390741_012023-O.jpg",
+            "secure_url": "https://http2.mlstatic.com/D_630723-MLM53260390741_012023-O.jpg",
+            "size": "500x472",
+            "max_size": "1200x1133",
+            "quality": ""
+        }
+    ],
+    "video_id": null,
+    "descriptions": [],
+    "accepts_mercadopago": true,
+    "non_mercado_pago_payment_methods": [],
+    "shipping": {
+        "mode": "me2",
+        "methods": [],
+        "tags": [],
+        "dimensions": null,
+        "local_pick_up": false,
+        "free_shipping": false,
+        "logistic_type": "fulfillment",
+        "store_pick_up": false
+    },
+    "international_delivery_mode": "none",
+    "seller_address": {
+        "city": {
+            "id": "TUxNQ0NVQTczMTI",
+            "name": "Cuauhtémoc"
+        },
+        "state": {
+            "id": "MX-DIF",
+            "name": "Distrito Federal"
+        },
+        "country": {
+            "id": "MX",
+            "name": "Mexico"
+        },
+        "search_location": {
+            "neighborhood": {
+                "id": "TUxNQkNFTjM1ODM",
+                "name": "Centro De La Ciudad De México Area 1"
+            },
+            "city": {
+                "id": "TUxNQ0NVQTczMTI",
+                "name": "Cuauhtémoc"
+            },
+            "state": {
+                "id": "TUxNUERJUzYwOTQ",
+                "name": "Distrito Federal"
+            }
+        },
+        "id": 1185277369
+    },
+    "seller_contact": null,
+    "location": {},
+    "coverage_areas": [],
+    "attributes": [
+        {
+            "id": "BEAM_DISTANCE",
+            "name": "Alcance de proyección",
+            "value_id": null,
+            "value_name": "50 m",
+            "values": [
+                {
+                    "id": null,
+                    "name": "50 m",
+                    "struct": {
+                        "number": 50,
+                        "unit": "m"
+                    }
+                }
+            ],
+            "value_type": "number_unit"
+        },
+        {
+            "id": "BRAND",
+            "name": "Marca",
+            "value_id": "1025369",
+            "value_name": "TGW",
+            "values": [
+                {
+                    "id": "1025369",
+                    "name": "TGW",
+                    "struct": null
+                }
+            ],
+            "value_type": "string"
+        },
+        {
+            "id": "DIAMETER",
+            "name": "Diámetro",
+            "value_id": "-1",
+            "value_name": null,
+            "values": [
+                {
+                    "id": "-1",
+                    "name": null,
+                    "struct": null
+                }
+            ],
+            "value_type": "number_unit"
+        }
+    ],
+    "listing_source": "",
+    "variations": [
+        {
+            "id": 176295276904,
+            "price": 68.88,
+            "attribute_combinations": [
+                {
+                    "id": "FLASHLIGHT_COLOR",
+                    "name": "Color de la linterna",
+                    "value_id": "52049",
+                    "value_name": "Negro",
+                    "values": [
+                        {
+                            "id": "52049",
+                            "name": "Negro",
+                            "struct": null
+                        }
+                    ],
+                    "value_type": "string"
+                },
+                {
+                    "id": "LIGHT_COLOR",
+                    "name": "Color de la luz",
+                    "value_id": "52055",
+                    "value_name": "Blanco",
+                    "values": [
+                        {
+                            "id": "52055",
+                            "name": "Blanco",
+                            "struct": null
+                        }
+                    ],
+                    "value_type": "string"
+                }
+            ],
+            "sale_terms": [],
+            "picture_ids": [
+                "630723-MLM53260390741_012023",
+                "922848-MLM53171840339_012023",
+                "831554-MLM53171789654_012023",
+                "851056-MLM53171956973_012023",
+                "822767-MLM53259913853_012023",
+                "644733-MLM53171715859_012023",
+                "748059-MLM53171821436_012023",
+                "976207-MLM53171868235_012023",
+                "749231-MLM53171821439_012023",
+                "824394-MLM53171867235_012023"
+            ],
+            "catalog_product_id": null
+        }
+    ],
+    "status": "active",
+    "sub_status": [],
+    "tags": [
+        "good_quality_picture",
+        "good_quality_thumbnail",
+        "immediate_payment",
+        "cart_eligible"
+    ],
+    "warranty": "Garantía del vendedor: 1 meses",
+    "catalog_product_id": null,
+    "domain_id": "MLM-FLASHLIGHTS",
+    "parent_item_id": null,
+    "deal_ids": [
+        "MLM34147",
+        "MLM28355"
+    ],
+    "automatic_relist": false,
+    "date_created": "2023-01-05T09:35:02.000Z",
+    "last_updated": "2023-11-07T05:31:59.000Z",
+    "health": 0.85,
+    "catalog_listing": false
+}
+"""
 
 private const val SEARCH_JSON = """
 {

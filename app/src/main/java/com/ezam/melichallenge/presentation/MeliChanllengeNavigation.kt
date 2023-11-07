@@ -3,6 +3,8 @@ package com.ezam.melichallenge.presentation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.ezam.melichallenge.search.presentation.details.detailsRoute
+import com.ezam.melichallenge.search.presentation.details.navigateToDetails
 import com.ezam.melichallenge.search.presentation.search_form.SEARCH_ROUTE
 import com.ezam.melichallenge.search.presentation.search_form.navigateToSearch
 import com.ezam.melichallenge.search.presentation.search_form.searchRoute
@@ -19,7 +21,8 @@ fun MeliChallengeNavHost() {
             onSearchRequest = { navController.navigateToSearchList(it) }
         )
         searchListRoute(
-            onShowDetails = { /*TODO*/ }
+            onShowDetails = { navController.navigateToDetails(it.id) }
         )
+        detailsRoute()
     }
 }

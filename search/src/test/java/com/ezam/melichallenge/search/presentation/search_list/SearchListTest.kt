@@ -30,7 +30,7 @@ class SearchListTest {
     @Test
     fun `no dede llamar a loadMore si ho ha llegado al fin de la lista`() {
         //given
-        val results = List(50){ index -> ResultItem(image = Image.URL("$index"), name = Text.StringValue("$index") ) }
+        val results = List(50){ index -> ResultItem(id = "ID", image = Image.URL("$index"), name = Text.StringValue("$index") ) }
 
         val onLoadMore: () -> Unit = mockk(relaxed = true)
 
@@ -48,7 +48,7 @@ class SearchListTest {
     @Test
     fun `dede llamar a loadMore solo cuando llega al fin de la lista`() {
         //given
-        val results = List(50){ index -> ResultItem(image = Image.URL("$index"), name = Text.StringValue("$index") ) }
+        val results = List(50){ index -> ResultItem(id = "ID",image = Image.URL("$index"), name = Text.StringValue("$index") ) }
 
         val onLoadMore: () -> Unit = mockk(relaxed = true)
 

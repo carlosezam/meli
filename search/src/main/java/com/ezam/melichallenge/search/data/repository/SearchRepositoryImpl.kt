@@ -6,11 +6,15 @@ import arrow.core.raise.either
 import arrow.core.right
 import com.ezam.melichallenge.search.data.remote.SearchApi
 import com.ezam.melichallenge.search.data.remote.mappers.toProduct
+import com.ezam.melichallenge.search.data.remote.mappers.toProductDetails
 import com.ezam.melichallenge.search.data.remote.model.SearchPaginationImpl
+import com.ezam.melichallenge.search.domain.model.ProductDetails
 import com.ezam.melichallenge.search.domain.repository.SearchRepository
+import com.ezam.melichallenge.search.domain.repository.model.ProductDetailsError
 import com.ezam.melichallenge.search.domain.repository.model.SearchPagination
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductError
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductResult
+import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
@@ -42,6 +46,18 @@ class SearchRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getProductDetails(productId: String): Either<ProductDetailsError, ProductDetails> = either {
+
+        try {
+            searchApi.details( productId).toProductDetails()
+        }catch ( e: HttpException){
+            raise( ProductDetailsError.NotFound )
+        }catch (e: IOException){
+            raise(ProductDetailsError.InternetError)
+        }catch (e: Exception){
+            raise(ProductDetailsError.UnknownError)
+        }
+    }
 
     companion object {
         internal const val PAGE_SIZE = 15

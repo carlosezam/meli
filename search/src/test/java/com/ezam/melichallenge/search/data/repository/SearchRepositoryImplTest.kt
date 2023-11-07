@@ -4,6 +4,7 @@ import com.ezam.melichallenge.search.data.remote.SearchApi
 import com.ezam.melichallenge.search.data.remote.model.SearchDTO
 import com.ezam.melichallenge.search.data.remote.model.SearchPaginationImpl
 import com.ezam.melichallenge.search.domain.model.Product
+import com.ezam.melichallenge.search.domain.repository.model.ProductDetailsError
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductError
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductResult
 import com.google.common.truth.Truth
@@ -20,6 +21,8 @@ import okio.IOException
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import retrofit2.HttpException
+import retrofit2.Response
 
 class SearchRepositoryImplTest {
 
@@ -128,5 +131,49 @@ class SearchRepositoryImplTest {
             offset = 15, limit = 5, total = 0
         )
         Truth.assertThat(searchProductResult.next).isEqualTo(expected)
+    }
+
+    val notFoundException = HttpException(  Response.error<Nothing>(404, mockk(relaxed = true)))
+
+    @Test
+    fun `retorna NotFound cuando el api de detalles responde con 404`() = runTest {
+
+        // given
+        coEvery { searchApi.details(any()) } throws notFoundException
+        val searchRepository = SearchRepositoryImpl(searchApi)
+
+        // when
+        val result = searchRepository.getProductDetails( "lorem")
+
+        // then
+        result.shouldBeLeft( ProductDetailsError.NotFound )
+    }
+
+    @Test
+    fun `retorna InternetError cuando el api de detalles responde con error de red`() = runTest {
+
+        // given
+        coEvery { searchApi.details(any()) } throws IOException("error")
+        val searchRepository = SearchRepositoryImpl(searchApi)
+
+        // when
+        val result = searchRepository.getProductDetails( "lorem")
+
+        // then
+        result.shouldBeLeft( ProductDetailsError.InternetError )
+    }
+
+    @Test
+    fun `retorna Unknown cuando el api de detalles responde con error desconocido`() = runTest {
+
+        // given
+        coEvery { searchApi.details(any()) } throws RuntimeException("error")
+        val searchRepository = SearchRepositoryImpl(searchApi)
+
+        // when
+        val result = searchRepository.getProductDetails( "lorem")
+
+        // then
+        result.shouldBeLeft( ProductDetailsError.UnknownError )
     }
 }
