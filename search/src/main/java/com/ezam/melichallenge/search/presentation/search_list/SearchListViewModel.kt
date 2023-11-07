@@ -8,10 +8,8 @@ import com.ezam.melichallenge.search.data.remote.model.SearchPaginationImpl
 import com.ezam.melichallenge.search.domain.model.Product
 import com.ezam.melichallenge.search.domain.repository.SearchRepository
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductError
-import com.ezam.melichallenge.search.presentation.search_list.model.ResultItem
 import com.ezam.melichallenge.search.presentation.search_list.model.SearchListState
 import com.ezam.melichallenge.search.presentation.search_list.model.toResultItem
-import com.ezam.yaperecipies.presentation.model.Image
 import com.ezam.yaperecipies.presentation.model.Text
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

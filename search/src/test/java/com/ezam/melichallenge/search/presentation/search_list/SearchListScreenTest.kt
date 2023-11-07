@@ -9,7 +9,7 @@ import com.ezam.melichallenge.search.presentation.ErrorScreen
 import com.ezam.melichallenge.search.presentation.LoadingScreen
 import com.ezam.melichallenge.search.presentation.search_list.model.ResultItem
 import com.ezam.melichallenge.search.presentation.search_list.model.SearchListState
-import com.ezam.yaperecipies.presentation.model.Image
+import com.ezam.melichallenge.utils.models.Image
 import com.ezam.yaperecipies.presentation.model.Text
 import io.mockk.mockk
 import io.mockk.verify

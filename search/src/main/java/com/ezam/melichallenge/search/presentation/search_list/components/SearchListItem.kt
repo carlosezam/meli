@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.ezam.melichallenge.search.presentation.search_list.model.ResultItem
 import com.ezam.yaperecipies.presentation.component.painterImage
 import com.ezam.yaperecipies.presentation.component.stringText
-import com.ezam.yaperecipies.presentation.model.Image
+import com.ezam.melichallenge.utils.models.Image
 import com.ezam.yaperecipies.presentation.model.Text
 
 

@@ -1,7 +1,18 @@
 package com.ezam.yaperecipies.presentation.model
 
+/**
+ * Interfaz sellada que representa texto, que puede ser un recurso o un valor de literal.
+ */
 sealed interface Text {
+
+    /**
+     * Representa una cadena de recurso con identificación y parámetros opcionales.
+     */
     data class StringRes(val id: Int, val params: Array<Any> = emptyArray()) : Text {
+
+        /**
+         * Comprueba si otro objeto es igual tomando en cuenta el contenido de [params]
+         */
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
@@ -21,5 +32,8 @@ sealed interface Text {
         }
     }
 
+    /**
+     * Representa una string literal.
+     */
     data class StringValue(val value: String) : Text
 }

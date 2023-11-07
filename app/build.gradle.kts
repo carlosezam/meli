@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
 
+    implementation(libs.timber)
 
     implementation( project(":search"))
 }

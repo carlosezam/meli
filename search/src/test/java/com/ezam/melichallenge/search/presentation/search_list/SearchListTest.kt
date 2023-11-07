@@ -1,14 +1,12 @@
 package com.ezam.melichallenge.search.presentation.search_list
 
-import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performScrollToIndex
-import androidx.compose.ui.test.performScrollToNode
 import com.ezam.melichallenge.search.presentation.search_list.components.SearchList
 import com.ezam.melichallenge.search.presentation.search_list.model.ResultItem
 import com.ezam.melichallenge.search.presentation.search_list.model.SearchListState
-import com.ezam.yaperecipies.presentation.model.Image
+import com.ezam.melichallenge.utils.models.Image
 import com.ezam.yaperecipies.presentation.model.Text
 import io.mockk.mockk
 import io.mockk.verify

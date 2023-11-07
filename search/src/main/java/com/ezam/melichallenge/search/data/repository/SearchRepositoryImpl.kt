@@ -14,12 +14,14 @@ import com.ezam.melichallenge.search.domain.repository.model.ProductDetailsError
 import com.ezam.melichallenge.search.domain.repository.model.SearchPagination
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductError
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductResult
+import com.ezam.melichallenge.utils.utils.Logger
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(
-    private val searchApi: SearchApi
+    private val searchApi: SearchApi,
+    private val logger: Logger,
 ) : SearchRepository<SearchPaginationImpl> {
 
     override suspend fun searchProduct(
@@ -40,8 +42,10 @@ class SearchRepositoryImpl @Inject constructor(
                 ),
             )
         } catch ( e: IOException) {
+            logger.error( e.stackTraceToString() )
             raise( SearchProductError.InternetError )
         } catch ( e: Exception ){
+            logger.error( e.stackTraceToString() )
             raise( SearchProductError.UnknownError )
         }
     }
@@ -51,10 +55,13 @@ class SearchRepositoryImpl @Inject constructor(
         try {
             searchApi.details( productId).toProductDetails()
         }catch ( e: HttpException){
+            logger.error( e.stackTraceToString() )
             raise( ProductDetailsError.NotFound )
         }catch (e: IOException){
+            logger.error( e.stackTraceToString() )
             raise(ProductDetailsError.InternetError)
         }catch (e: Exception){
+            logger.error( e.stackTraceToString() )
             raise(ProductDetailsError.UnknownError)
         }
     }

@@ -30,6 +30,7 @@ squareup-retrofit2 = "2.9.0"
 squareup-okhttp3-mockwebserver = "4.11.0"
 squareup-okhttp3-logging-interceptor = "4.11.0"
 retrofit2-serialization-converter = "1.0.0"
+timber = "4.7.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -39,6 +40,9 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+#Log
+timber = {group = "com.jakewharton.timber", name = "timber", version.ref = "timber"}
 
 #Compose
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }

@@ -7,6 +7,7 @@ import com.ezam.melichallenge.search.domain.model.Product
 import com.ezam.melichallenge.search.domain.repository.model.ProductDetailsError
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductError
 import com.ezam.melichallenge.search.domain.repository.model.SearchProductResult
+import com.ezam.melichallenge.utils.utils.Logger
 import com.google.common.truth.Truth
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
@@ -32,13 +33,16 @@ class SearchRepositoryImplTest {
     @MockK
     lateinit var searchApi: SearchApi
 
+    @MockK(relaxed = true)
+    lateinit var logger: Logger
+
     @Test
     fun `llama al api con valores por default cuando la paginacion es nula`() = runTest {
 
         // given
         coEvery { searchApi.search(query = any(), limit = any(), offset = any()) } returns mockk(relaxed = true)
 
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         searchRepository.searchProduct("lorem")
@@ -53,7 +57,7 @@ class SearchRepositoryImplTest {
         // given
         coEvery { searchApi.search(query = any(), limit = any(), offset = any()) } returns mockk(relaxed = true)
 
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val paginationImpl = SearchPaginationImpl(offset = 10, limit = 20)
@@ -68,7 +72,7 @@ class SearchRepositoryImplTest {
 
         // given
         coEvery { searchApi.search(any(),any(),any()) } throws IOException("error")
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val result = searchRepository.searchProduct("lorem")
@@ -82,7 +86,7 @@ class SearchRepositoryImplTest {
 
         // given
         coEvery { searchApi.search(any(),any(),any()) } throws RuntimeException("error")
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val result = searchRepository.searchProduct("lorem")
@@ -99,7 +103,7 @@ class SearchRepositoryImplTest {
             results = listOf(SearchDTO.ResultDTO("id", "title", "thmb", 1f)),
             paging = SearchDTO.PagingDTO(10,0, 5)
         )
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val result = searchRepository.searchProduct("lorem")
@@ -120,7 +124,7 @@ class SearchRepositoryImplTest {
             results = listOf(),
             paging = SearchDTO.PagingDTO(total = 0, offset = 10, limit = 5)
         )
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val result = searchRepository.searchProduct("lorem", SearchPaginationImpl(offset = 10, limit = 5))
@@ -140,7 +144,7 @@ class SearchRepositoryImplTest {
 
         // given
         coEvery { searchApi.details(any()) } throws notFoundException
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val result = searchRepository.getProductDetails( "lorem")
@@ -154,7 +158,7 @@ class SearchRepositoryImplTest {
 
         // given
         coEvery { searchApi.details(any()) } throws IOException("error")
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val result = searchRepository.getProductDetails( "lorem")
@@ -168,7 +172,7 @@ class SearchRepositoryImplTest {
 
         // given
         coEvery { searchApi.details(any()) } throws RuntimeException("error")
-        val searchRepository = SearchRepositoryImpl(searchApi)
+        val searchRepository = SearchRepositoryImpl(searchApi, logger)
 
         // when
         val result = searchRepository.getProductDetails( "lorem")

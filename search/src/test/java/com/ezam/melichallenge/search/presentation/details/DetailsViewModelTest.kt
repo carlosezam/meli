@@ -8,13 +8,12 @@ import com.ezam.melichallenge.search.domain.model.ProductAttribute
 import com.ezam.melichallenge.search.domain.model.ProductDetails
 import com.ezam.melichallenge.search.domain.repository.SearchRepository
 import com.ezam.melichallenge.search.presentation.details.model.DetailsState
-import com.ezam.yaperecipies.presentation.model.Image
+import com.ezam.melichallenge.utils.models.Image
 import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit4.MockKRule
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 

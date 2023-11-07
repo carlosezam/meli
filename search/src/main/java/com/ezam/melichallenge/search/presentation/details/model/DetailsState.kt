@@ -1,7 +1,7 @@
 package com.ezam.melichallenge.search.presentation.details.model
 
 import com.ezam.melichallenge.search.R
-import com.ezam.yaperecipies.presentation.model.Image
+import com.ezam.melichallenge.utils.models.Image
 import com.ezam.yaperecipies.presentation.model.Text
 
 data class DetailsState(
